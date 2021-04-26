@@ -1,3 +1,3 @@
 --extra-index-url https://alpine-wheels.github.io/index
 
-youtube_dl==2021.4.17
+youtube_dl==2021.4.26
