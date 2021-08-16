@@ -1,8 +1,18 @@
 FROM python:3.9.6-alpine3.14
 
 RUN /sbin/apk add --no-cache ffmpeg
+RUN /usr/sbin/adduser -g python -D python
 
-COPY requirements.txt /youtube-dl/requirements.txt
-RUN /usr/local/bin/pip install --no-cache-dir --requirement /youtube-dl/requirements.txt
+USER python
+RUN /usr/local/bin/python -m venv /home/python/venv
 
-ENTRYPOINT ["/usr/local/bin/youtube-dl"]
+ENV PATH="/home/python/venv/bin:${PATH}" \
+    PYTHONUNBUFFERED="1"
+
+COPY --chown=python:python requirements.txt /home/python/youtube-dl/requirements.txt
+RUN /home/python/venv/bin/pip install --no-cache-dir --requirement /home/python/youtube-dl/requirements.txt
+
+ENTRYPOINT ["/home/python/venv/bin/youtube-dl"]
+
+LABEL org.opencontainers.image.authors="William Jackson <william@subtlecoolness.com>" \
+      org.opencontainers.image.source="https://github.com/williamjacksn/docker-youtube-dl"
