@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   youtube-dl:
     image: ghcr.io/williamjacksn/youtube-dl
