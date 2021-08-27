@@ -2,3 +2,17 @@ services:
   youtube-dl:
     image: ghcr.io/williamjacksn/youtube-dl
     init: true
+
+  get-mp3:
+    entrypoint:
+      - /home/python/venv/bin/youtube-dl
+      - --extract-audio
+      - --audio-format
+      - mp3
+      - --cache-dir
+      - /workspace/.local/cache
+    image: ghcr.io/williamjacksn/youtube-dl
+    init: true
+    volumes:
+      - ./:/workspace
+    working_dir: /workspace
