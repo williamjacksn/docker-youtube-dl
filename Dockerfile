@@ -1,6 +1,6 @@
 FROM python:3.10.1-alpine3.15
 
-RUN /sbin/apk add --no-cache ffmpeg
+RUN /sbin/apk add --no-cache aria2 ffmpeg
 RUN /usr/sbin/adduser -g python -D python
 
 USER python
