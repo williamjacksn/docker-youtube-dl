@@ -1,8 +1,4 @@
 services:
-  youtube-dl:
-    image: ghcr.io/williamjacksn/youtube-dl
-    init: true
-
   get-mp3:
     entrypoint:
       - /home/python/venv/bin/youtube-dl
@@ -10,9 +6,43 @@ services:
       - --audio-format
       - mp3
       - --cache-dir
-      - /workspace/.local/cache
+      - /home/python/youtube-dl/.local/cache
     image: ghcr.io/williamjacksn/youtube-dl
     init: true
     volumes:
-      - ./:/workspace
-    working_dir: /workspace
+      - ./:/home/python/youtube-dl
+    working_dir: /home/python/youtube-dl
+
+  get-mp3-playlist:
+    entrypoint:
+      - /home/python/venv/bin/youtube-dl
+      - --extract-audio
+      - --audio-format
+      - mp3
+      - --cache-dir
+      - /home/python/youtube-dl/.local/cache
+      - --ignore-errors
+      - --continue
+      - --no-overwrites
+      - --download-archive
+      - .local/progress.txt
+    image: ghcr.io/williamjacksn/youtube-dl
+    init: true
+    volumes:
+      - ./:/home/python/youtube-dl
+    working_dir: /home/python/youtube-dl
+
+  shell:
+    entrypoint: /bin/sh
+    image: ghcr.io/williamjacksn/youtube-dl
+    init: true
+    volumes:
+      - ./:/home/python/youtube-dl
+    working_dir: /home/python/youtube-dl
+
+  youtube-dl:
+    image: ghcr.io/williamjacksn/youtube-dl
+    init: true
+    volumes:
+      - ./:/home/python/youtube-dl
+    working_dir: /home/python/youtube-dl
