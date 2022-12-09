@@ -1,3 +1,5 @@
+> ⚠ This repo is no longer maintained. Check out https://github.com/williamjacksn/docker-yt-dlp instead.
+
 # docker-youtube-dl
 
 A Docker image for [ytdl-org/youtube-dl][a].
